@@ -5,28 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MTC_wpfApp"
         mc:Ignorable="d"
-        Title="Таблица клиентов" Height="450" Width="800">
+        MinWidth="800"
+        MinHeight="450"
+        Title="Главная страница" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
-
-            <RowDefinition Height="50"/>
-            <RowDefinition/>
-
+            <RowDefinition />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <Button Click="openClientwindowButton_Click" x:Name="openClientwindowButton" Width="200" Height="35" Content="Добавить клиента" Margin="10,0"></Button>
+        <StackPanel Grid.Row="0" VerticalAlignment="Center">
+            <Button x:Name="clientTableButton" Click="clientTableButton_Click" Width="200" Height="50" Content="Список клиентов" Grid.Row="0"></Button>
+            <Button x:Name="cityTableButton" Click="cityTableButton_Click" Margin="0,20,0,0" Width="200" Height="50" Content="Список городов" Grid.Row="1"></Button>
         </StackPanel>
         
-        <DataGrid Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False" Name="clientGrid" Margin="0,0,-0.4,0" Grid.RowSpan="2">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Имя" Binding="{Binding name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Фамилия" Binding="{Binding surname}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Отчество" Binding="{Binding patronymic}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Телефон" Binding="{Binding phone}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Адрес" Binding="{Binding adress}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Дата регистрации" Binding="{Binding format_reg_date}"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
     </Grid>
 </Window>

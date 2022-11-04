@@ -19,26 +19,77 @@ namespace MTC_wpfApp.Windows
     /// </summary>
     public partial class CreateClient : Window
     {
-        public CreateClient()
+        private Models.Client _currentClient = new Models.Client();
+        public CreateClient(Models.Client client)
         {
             InitializeComponent();
+            if(client != null)
+            {
+                _currentClient = client;
+            }
+            DataContext = _currentClient;
         }
 
-        private void createClientButton_Click(object sender, RoutedEventArgs e)
+        private void saveButton_Click(object sender, RoutedEventArgs e)
         {
-            Models.Client client = new Models.Client();
-            client.name = NameTextBox.Text;
-            client.surname = SurnameTextBox.Text;
-            client.patronymic = PatronymicTextBox.Text;
-            client.phone = PhoneTextBox.Text;
-            client.adress = AdressTextBox.Text;
-            client.reg_date = DateTime.Now;
-            Models.MTCEntities.GetContext().Clients.Add(client);
-            Models.MTCEntities.GetContext().SaveChanges();
+            StringBuilder errors = new StringBuilder();
+            if (string.IsNullOrEmpty(NameTextBox.Text))
+            {
+                errors.AppendLine("Введите имя. Это обязательное поле");
+            }
+            if (string.IsNullOrEmpty(SurnameTextBox.Text))
+            {
+                errors.AppendLine("Введите фамилию. Это обязательное поле");
+            }
+            if (string.IsNullOrEmpty(PatronymicTextBox.Text))
+            {
+                errors.AppendLine("Введите отчество. Это обязательное поле");
+            }
+            if (string.IsNullOrEmpty(PhoneTextBox.Text))
+            {
+                errors.AppendLine("Введите номер телефона. Это обязательное поле");
+            }
+            if (string.IsNullOrEmpty(AdressTextBox.Text))
+            {
+                errors.AppendLine("Введите адрес. Это обязательное поле");
+            }
 
-            MainWindow window = new MainWindow();
-            window.Show();
+            if (errors.Length > 0)
+            {
+                MessageBox.Show(errors.ToString(), "Некорректные данные", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if(_currentClient.Id == 0)
+            {
+                _currentClient.reg_date = DateTime.Now;
+                Models.MTCEntities.GetContext().Clients.Add(_currentClient);
+            }
+
+            try
+            {
+                Models.MTCEntities.GetContext().SaveChanges();
+                MessageBox.Show("Информация сохранена", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                Windows.ClientsTable clientsTable = new Windows.ClientsTable();
+                clientsTable.Show();
+                this.Hide();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void toClientTable_Click(object sender, RoutedEventArgs e)
+        {
+            Windows.ClientsTable clientsTable = new Windows.ClientsTable();
+            clientsTable.Show();
             this.Hide();
+        }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = "0123456789".IndexOf(e.Text) < 0;
         }
     }
 }

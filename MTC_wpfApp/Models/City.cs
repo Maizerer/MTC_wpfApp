@@ -25,7 +25,15 @@ namespace MTC_wpfApp.Models
         public string name { get; set; }
         public decimal price { get; set; }
         public decimal sale_price { get; set; }
-    
+
+        public string format_date
+        {
+            get
+            {
+                return date.ToString("dd.MM.yyyy");
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Call> Calls { get; set; }
     }

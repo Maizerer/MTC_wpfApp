@@ -23,13 +23,19 @@ namespace MTC_wpfApp
         public MainWindow()
         {
             InitializeComponent();
-            clientGrid.ItemsSource = Models.MTCEntities.GetContext().Clients.ToList();
         }
 
-        private void openClientwindowButton_Click(object sender, RoutedEventArgs e)
+        private void clientTableButton_Click(object sender, RoutedEventArgs e)
         {
-            Windows.CreateClient window = new Windows.CreateClient();
-            window.Show();
+            Windows.ClientsTable clientsTable = new Windows.ClientsTable();
+            clientsTable.Show();
+            this.Hide();
+        }
+
+        private void cityTableButton_Click(object sender, RoutedEventArgs e)
+        {
+            Windows.CitiesTable citiesTable = new Windows.CitiesTable();
+            citiesTable.Show();
             this.Hide();
         }
     }

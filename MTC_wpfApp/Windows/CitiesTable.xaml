@@ -1,0 +1,31 @@
+﻿<Window x:Class="MTC_wpfApp.Windows.CitiesTable"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MTC_wpfApp.Windows"
+        mc:Ignorable="d"
+        MinWidth="800"
+        MinHeight="450"
+        Title="Список городов" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <Button Click="toHomeButton_Click" x:Name="toHomeButton" Width="200" Height="35" Content="Вернуться на главную" Margin="10,0"></Button>
+        </StackPanel>
+        
+        <DataGrid Grid.Row="1" IsReadOnly="True" AutoGenerateColumns="False" Name="cityGrid" Margin="0,0,-0.4,0" Grid.RowSpan="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Название" Binding="{Binding name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Цена в мин." Binding="{Binding price}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Льготная цена в мин." Binding="{Binding sale_price}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Дата изменения" Binding="{Binding format_date}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
